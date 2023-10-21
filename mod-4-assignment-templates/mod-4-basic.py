@@ -33,7 +33,34 @@ def savings(gross_pay, tax_rate, expenses):
     '''
     # Replace `pass` with your code. 
     # Stay within the function. Only use the parameters as input. The function should return your answer.
-    pass
+import math
+
+def savings(gross_pay, tax_rate, expenses):
+
+    if not (0 <= tax_rate <= 1):
+        raise ValueError("Tax rate must be a decimal between 0 and 1.")
+    if gross_pay < 0 or expenses < 0:
+        raise ValueError("Gross pay and expenses must be non-negative values.")
+
+    non_roundeddown_aftertax = gross_pay * tax_rate
+    roundeddown_aftertax = math.floor(non_roundeddown_aftertax)
+    savings = gross_pay - roundeddown_aftertax - expenses
+
+    return savings
+
+try:
+    gross_pay = int(input("Enter the gross pay in centavos: "))
+    tax_rate = float(input("Enter the tax rate (as a decimal between 0 and 1): "))
+    expenses = int(input("Enter the expenses in centavos: "))
+
+    result = savings(gross_pay, tax_rate, expenses)
+    print("Your total savings is " + str(result) + " centavos")
+except ValueError as e:
+    print("Input error:", e)
+except Exception as e:
+    print("An error occurred:", e)
+
+
 
 def material_waste(total_material, material_units, num_jobs, job_consumption):
     '''Material Waste.
@@ -68,7 +95,36 @@ def material_waste(total_material, material_units, num_jobs, job_consumption):
     '''
     # Replace `pass` with your code. 
     # Stay within the function. Only use the parameters as input. The function should return your answer.
-    pass
+import re 
+
+def material_waste(total_material, material_units, num_jobs, job_consumption):
+    if total_material < 0:
+        raise ValueError("Total Material should be more than or equal to 0")
+    if not re.match("^[a-zA-Z]+$", material_units):
+        raise ValueError("Material Units should contain only alphabetic characters.")
+    if num_jobs < 0:
+        raise ValueError("Number of jobs should be more than or equal to 0")
+    if job_consumption < 0:
+        raise ValueError("Job consumption should be more than or equal to 0")
+    
+    total_consumed = num_jobs * job_consumption
+    material_waste = total_material - total_consumed
+    return material_waste
+
+try:
+    total_material = int(input("Enter total material available: "))
+    material_units = input("Enter material unit: ")
+    num_jobs = int(input("Enter number of jobs: "))
+    job_consumption = int(input("Enter the amount of material consumed per job: "))
+
+    result = material_waste(total_material, material_units, num_jobs, job_consumption)
+    print(result, material_units, sep="")
+except ValueError as e:
+    print("Input error:", e)
+except Exception as e:
+    print("An error occurred:", e)
+
+-----
 
 def interest(principal, rate, periods):
     '''Interest.
@@ -98,7 +154,35 @@ def interest(principal, rate, periods):
     '''
     # Replace `pass` with your code. 
     # Stay within the function. Only use the parameters as input. The function should return your answer.
-    pass
+import re
+import math
+
+def interest(principal, rate, periods):
+    if principal < 0:
+        raise ValueError("Principal should be more than or equal to 0")
+    if not (0 <= rate <= 1):
+        raise ValueError("Rate must be a decimal between 0 and 1.")
+    if periods < 0:
+        raise ValueError("Periods should be more than or equal to 0")
+    
+    simple_interest = principal * rate * periods
+    final_amount = simple_interest + principal
+    interest = math.floor(final_amount)
+    return interest
+    
+try:
+    principal = int(input("Enter the principal amount invested, expressed in centavos here: "))
+    rate = float(input("Enter rate per period, expressed as a decimal representation of a percentage here: "))
+    periods = int(input("Enter number of periods invested here: "))
+
+    result = interest(principal, rate, periods) 
+    print(result)
+except ValueError as e:
+    print("Input error:", e)
+except Exception as e:
+    print("An error occurred:", e)
+
+#next item
 
 def body_mass_index(weight, height):
     '''Body Mass Index.
@@ -130,4 +214,32 @@ def body_mass_index(weight, height):
     '''
     # Replace `pass` with your code. 
     # Stay within the function. Only use the parameters as input. The function should return your answer.
-    pass
+    def body_mass_index(weight, height):
+    if weight < 0:
+        raise ValueError("Weight should be more than or equal to 0")
+    if height[0] < 0 or height[1] < 0:
+        raise ValueError("Feet and inches should be more than or equal to 0")
+
+    pounds_convert_kg = 0.453592
+    feet_convert_meters = 0.3048
+    inches_convert_meters = 0.0254
+
+    kg_weight = weight * pounds_convert_kg
+
+    meters_height = (height[0] * feet_convert_meters) + (height[1] * inches_convert_meters)
+
+    BMI = kg_weight / (meters_height ** 2)
+
+    return BMI
+
+try:
+    weight = float(input("Enter weight in pounds here: "))
+    feet = int(input("Enter your height in feet: "))
+    inches = int(input("Enter the remaining inches: "))
+
+    result = body_mass_index(weight, [feet, inches])
+    print(result)
+except ValueError as e:
+    print("Input error:", e)
+except Exception as e:
+    print("An error occurred:", e)
